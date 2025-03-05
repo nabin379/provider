@@ -1,5 +1,7 @@
 
-class Product {
+import 'package:flutter/material.dart';
+
+class Product with ChangeNotifier {
  final String id;
   final String title;
   final String description;
@@ -16,6 +18,10 @@ class Product {
      this.isFavorite = false,
 
   });
+  void toogleIsFav(){
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
  }
 
  var p = Product(id: '12', title: 'mobile', description: 'nokia', image: 'https://source.unsplash.com/400x400/?mobile,phone', price: '34999');
