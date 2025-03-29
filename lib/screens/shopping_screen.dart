@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_app/Providers/product_providers.dart';
 import 'package:provider_app/Providers/product.dart';
+import 'package:provider_app/screens/cart_screen.dart';
+import 'package:provider_app/screens/order_screen.dart';
 import 'package:provider_app/widgets/product_item.dart';
 
 class ShoppingScreen extends StatefulWidget {
@@ -19,17 +21,20 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: Colors.pink,
+            onPressed: (){
+              Navigator.of(context).pushNamed(OrderScreen.id);
+            }, label: Text("My Orders")),
       appBar: AppBar(
         title: Text("Nabin Store"),
         actions: [
           PopupMenuButton(
               onSelected: (int selectedVal) {
-                if (selectedVal == 0) {
-                  showFav = true;
-                }
-                if (selectedVal == 1) {
-                  showFav = false;
-                }
+                setState(() {
+                  if (selectedVal == 0) {showFav = true; }
+                  if (selectedVal == 1) {showFav = false;}
+                });
               },
               icon: Icon(Icons.more_vert),
               itemBuilder: (_) {
@@ -40,18 +45,23 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                   ),
                   PopupMenuItem(child: Text("remove filters"), value: 1),
                 ];
-              })
+              }),
+              IconButton(onPressed: (){
+                Navigator.of(context).pushNamed(CartScreen.id);
+              }, icon: Icon(Icons.shopping_cart_checkout))
         ],
       ),
-      body: productsGrid(isFav: showFav),
+      body: ProductsGrid(isFav: showFav),
     ));
   }
 }
 
-class productsGrid extends StatelessWidget {
-  const productsGrid({
-    super.key,
- required this.isFav });
+class ProductsGrid extends StatelessWidget {
+ const ProductsGrid({
+    Key? key,
+    required this.isFav,
+  }) : super(key: key);
+
 final bool isFav;
   @override
   Widget build(BuildContext context) {

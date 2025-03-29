@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_app/Providers/product.dart';
 
 class Products with ChangeNotifier{
-  List<Product> _availableProducts = [
+ final List<Product> _availableProducts = [
     Product(
         id: '101',
         title: 'iphone ',
@@ -40,4 +40,8 @@ class Products with ChangeNotifier{
   //   notifyListeners();
   // }
   
+  Product findById(String id){
+    return _availableProducts.firstWhere((product)=> product.id==id);
+  }
+
 }
