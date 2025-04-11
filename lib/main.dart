@@ -18,28 +18,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MultiProvider (providers: [
-
-
-      ChangeNotifierProvider(create: (BuildContext context)=> Products()),
-      ChangeNotifierProvider(create: (BuildContext context)=>Cart()),
-            ChangeNotifierProvider(create: (BuildContext context)=>Orders()),
-
-    ],
-     
-    child: MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      
-      home: MyHomePage() ,
-      routes: {
-        ShoppingScreen.id :(c) => ShoppingScreen(),
-        ProductDetails.id : (c) => ProductDetails(),
-        CartScreen.id : (c) => CartScreen(),
-        OrderScreen.id : (c) => OrderScreen(),
-
-      },)
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (BuildContext context) => Products()),
+          ChangeNotifierProvider(create: (BuildContext context) => Cart()),
+          ChangeNotifierProvider(create: (BuildContext context) => Orders()),
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          initialRoute: ShoppingScreen.id,
+          routes: {
+            ShoppingScreen.id: (c) => ShoppingScreen(),
+            ProductDetails.id: (c) => ProductDetails(),
+            CartScreen.id: (c) => CartScreen(),
+            OrderScreen.id: (c) => OrderScreen(),
+          },
+        ));
   }
 }
 
@@ -48,6 +43,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShoppingScreen() ;
+    return ShoppingScreen();
   }
 }
